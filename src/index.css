@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css?family=Copse');
+
+* {
+  line-height: 50px;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(45deg, #BFBE30, #AC66D4);
+  font-family: 'Copse', serif;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calc {
+  display: flex;
+  flex-flow: column wrap;
+  border: 2px solid white;
+  background-color: black;
+}
+
+.container {
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.display {
+    font-size: 30px;
+    border: 1px solid black;
+    text-align: right;
+    background: black;
+    color: white;
+    flex: 1 0 0%;
+    padding: 0 5px;
+    min-height: 52px;
+    overflow-x: hidden;
+}
+
+.history {
+    font-size: 24px;
+    border: 1px solid black;
+    text-align: right;
+    background: black;
+    color: yellow;
+    flex: 1 0 0%;
+    padding: 0 5px;
+    min-height: 52px;
+    overflow-x: hidden;
+}
+
+.btn {
+    flex: 0 0 75px;
+    text-align: center;
+    background-color: lightgray;
+    border: 1px solid black;
+    font-weight: bold;
+}
+
+.btn:hover {
+  color: white;
+  outline: 1px solid grey;
+}
+
+.btn-double {
+    flex: 0 0 150px;
+}
+
+.btn-orange {
+    background-color: orange;
+    color: white;
+}
+
+.btn-orange:hover {
+  color: black;
+  outline: 1px solid grey;
+}
