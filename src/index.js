@@ -4,6 +4,118 @@ import css from './index.css';
 
 const lastOperator = /[+\-\/\*]$/;
 
+const buttons = [
+  {
+    value: '=',
+    handler: 'handleEvaluation',
+    id: 'equals',
+    className: 'btn btn-double btn-orange',
+  },
+  {
+    id: 'zero',
+    value: '0',
+    className: 'btn',
+    handler: 'handleNumber',
+  },
+  {
+    id: 'decimal',
+    value: '.',
+    className: 'btn',
+    handler: 'handleDecimal',
+  },
+  {
+    id: 'add',
+    value: '+',
+    className: 'btn btn-orange',
+    handler: 'handleOperator',
+  },
+  {
+    id: 'three',
+    value: '3',
+    className: 'btn',
+    handler: 'handleNumber',
+  },
+  {
+    id: 'two',
+    value: '2',
+    className: 'btn',
+    handler: 'handleNumber',
+  },
+  {
+    id: 'one',
+    value: '1',
+    className: 'btn',
+    handler: 'handleNumber',
+  },
+  {
+    id: 'subtract',
+    value: '-',
+    className: 'btn btn-orange',
+    handler: 'handleOperator',
+  },
+  {
+    id: 'six',
+    value: '6',
+    className: 'btn',
+    handler: 'handleNumber',
+  },
+  {
+    id: 'five',
+    value: '5',
+    className: 'btn',
+    handler: 'handleNumber',
+  },
+  {
+    id: 'four',
+    value: '4',
+    className: 'btn',
+    handler: 'handleNumber',
+  },
+  {
+    id: 'multiply',
+    value: '*',
+    className: 'btn btn-orange',
+    handler: 'handleOperator',
+  },
+  {
+    id: 'nine',
+    value: '9',
+    className: 'btn',
+    handler: 'handleNumber',
+  },
+  {
+    id: 'eight',
+    value: '8',
+    className: 'btn',
+    handler: 'handleNumber',
+  },
+  {
+    id: 'seven',
+    value: '7',
+    className: 'btn',
+    handler: 'handleNumber',
+  },
+  {
+    id: 'divide',
+    value: '/',
+    className: 'btn btn-orange',
+    handler: 'handleOperator',
+  },
+  {
+    id: '',
+    value: '',
+    className: 'btn',
+    handler: null,
+  },
+  {
+    id: 'clear',
+    value: 'C',
+    className: 'btn btn-double',
+    handler: 'handleClear',
+  },
+
+].reverse();
+
 const Display = ({currentValue}) => <div className='container'>
   <div id='display' className='display'>
     {currentValue}
@@ -16,7 +128,7 @@ const History = ({previousValue}) => <div className='container'>
   </div>
 </div>;
 
-const Button = ({id, value, className, onClick}) => <button id={id} value={value} className={className} onClick={onClick}>{value}</button>;
+const Button = ({id, value, className, onClick = () => {}}) => <button id={id} value={value} className={className} onClick={onClick}>{value}</button>;
 
 const Container = ({children}) => <div className='container'>{children}</div>;
 
@@ -100,68 +212,51 @@ class App extends React.Component {
     });
   }
 
+
   render() {
     const {currentValue, previousValue} = this.state;
+    const handlers = {
+      'handleNumber': this.handleNumber,
+      'handleClear': this.handleClear,
+      'handleEvaluation': this.handleEvaluation,
+      'handleOperator': this.handleOperator,
+      'handleDecimal': this.handleDecimal
+    }
     return (
       <div className='calc'>
         <History {...{previousValue}}/>
         <Display {...{currentValue}}/>
-        <Container className='container'>
-          <Button
-            id='clear'
-            value='C'
-            className='btn btn-double'
-            onClick={this.handleClear}>C</Button>
-          <Button value='' className='btn'></Button>
-          <Button
-            id='divide'
-            value='/'
-            className='btn btn-orange'
-            onClick={this.handleOperator}>/</Button>
+        <Container>
+          {
+            buttons.map((element, i)=> i < 3 && <Button key={element.value} id={element.id} value={element.value} className={element.className} onClick={handlers[element.handler]} />)
+          }
         </Container>
-        <Container className='container'>
-          <Button id='seven' value='7' className='btn' onClick={this.handleNumber}>7</Button>
-          <Button id='eight' value='8' className='btn' onClick={this.handleNumber}>8</Button>
-          <Button id='nine' value='9' className='btn' onClick={this.handleNumber}>9</Button>
-          <Button
-            id='multiply'
-            value='*'
-            className='btn btn-orange'
-            onClick={this.handleOperator}>*</Button>
+        <Container>
+          {
+            buttons.map((element, i)=> i >= 3 && i < 7 && <Button key={element.value} id={element.id} value={element.value} className={element.className} onClick={handlers[element.handler]} />)
+          }
         </Container>
-        <Container className='container'>
-          <Button id='four' value='4' className='btn' onClick={this.handleNumber}>4</Button>
-          <Button id='five' value='5' className='btn' onClick={this.handleNumber}>5</Button>
-          <Button id='six' value='6' className='btn' onClick={this.handleNumber}>6</Button>
-          <Button
-            id='subtract'
-            value='-'
-            className='btn btn-orange'
-            onClick={this.handleOperator}>-</Button>
+        <Container>
+          {
+            buttons.map((element, i)=> i >= 7 && i < 11 && <Button key={element.value} id={element.id} value={element.value} className={element.className} onClick={handlers[element.handler]} />)
+          }
         </Container>
-        <Container className='container'>
-          <Button id='one' value='1' className='btn' onClick={this.handleNumber}>1</Button>
-          <Button id='two' value='2' className='btn' onClick={this.handleNumber}>2</Button>
-          <Button id='three' value='3' className='btn' onClick={this.handleNumber}>3</Button>
-          <Button
-            id='add'
-            value='+'
-            className='btn btn-orange'
-            onClick={this.handleOperator}>+</Button>
+        <Container>
+          {
+            buttons.map((element, i)=> i >= 11 && i < 15 && <Button key={element.value} id={element.id} value={element.value} className={element.className} onClick={handlers[element.handler]} />)
+          }
         </Container>
-        <Container className='container'>
-          <Button id='decimal' value='.' className='btn' onClick={this.handleDecimal}>.</Button>
-          <Button id='zero' value='0' className='btn' onClick={this.handleNumber}>0</Button>
-          <Button
-            id='equals'
-            value='='
-            className='btn btn-double btn-orange'
-            onClick={this.handleEvaluation}>=</Button>
+        <Container>
+          {
+            buttons.map((element, i)=> i >= 15 && <Button key={element.value} id={element.id} value={element.value} className={element.className} onClick={handlers[element.handler]} />)
+          }
         </Container>
       </div>
     )
   };
 }
+
+
 
 ReactDOM.render(
   <App/>, document.getElementById('root'));
